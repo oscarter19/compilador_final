@@ -638,12 +638,9 @@ class CUP$parser$actions {
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		NodoBase fin = (NodoBase)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		int cuerpoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int cuerporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object cuerpo = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                     if (debug) System.out.println("\t regla 8a");
-                    RESULT = new NodoFor(variable.toString(), inicio, fin, cuerpo, true);
+                    RESULT = new NodoFor(variable.toString(), inicio, fin, true);
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("for_stmt",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -662,12 +659,9 @@ class CUP$parser$actions {
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		NodoBase fin = (NodoBase)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		int cuerpoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int cuerporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object cuerpo = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                     if (debug) System.out.println("\t regla 8b");
-                    RESULT = new NodoFor(variable.toString(), inicio, fin, cuerpo, false);
+                    RESULT = new NodoFor(variable.toString(), inicio, fin, false);
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("for_stmt",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }

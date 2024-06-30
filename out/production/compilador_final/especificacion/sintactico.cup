@@ -116,16 +116,16 @@ program     ::= block:b {:
                 :}
                 ;
 
-block       ::= decls BEGIN stmt_seq:st END {:
+block       ::= decls:dcs BEGIN stmt_seq:st END {:
                     if (debug) System.out.println("\t regla 2");
-                    RESULT = new NodoBloque(dcls, st);
+                    RESULT = new NodoBloque(dcs, st);
                 :}
                 ;
 
-decls       ::= decls VAR ID:variable SEMI {:
+decls       ::= decls:dcs VAR ID:variable SEMI {:
                     if (debug) System.out.println("\t regla 3a");
                     NodoDeclaracion decl = new NodoDeclaracion(variable.toString());
-                    RESULT = new NodoSecuencia(decls, decl);
+                    RESULT = new NodoSecuencia(dcs, decl);
                :}
                 | {:
                     if (debug) System.out.println("\t regla 3b");
@@ -199,11 +199,11 @@ repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba {:
                 :}
                 ;
 
-for_stmt    ::= FOR ID:variable ASSIGN exp:inicio TO exp:fin DO {:
+for_stmt    ::= FOR ID:variable ASSIGN exp:inicio TO exp:fin DO :cuerpo {:
                     if (debug) System.out.println("\t regla 8a");
                     RESULT = new NodoFor(variable.toString(), inicio, fin, cuerpo, true);
                 :}
-                | FOR ID:variable ASSIGN exp:inicio DOWNTO exp:fin DO {:
+                | FOR ID:variable ASSIGN exp:inicio DOWNTO exp:fin DO :cuerpo {:
                     if (debug) System.out.println("\t regla 8b");
                     RESULT = new NodoFor(variable.toString(), inicio, fin, cuerpo, false);
                 :}

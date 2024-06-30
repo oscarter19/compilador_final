@@ -1,18 +1,18 @@
 package ve.edu.unet.nodosAST;
 
-public class NodoValorBooleano extends NodoBase{
-    private boolean valor;
+public class NodoValorBooleano extends NodoBase {
+    private Boolean nombre;
 
-    public NodoValorBooleano(boolean valor) {
+    public NodoValorBooleano(Boolean nombre) {
         super();
-        this.valor = valor;
+        this.nombre = nombre;
     }
 
-    public boolean isValor() {
-        return valor;
+    public Boolean getNombre() {
+        return nombre;
     }
 
-    public void setValor(boolean valor) {
-        this.valor = valor;
+    public void setNombre(Boolean nombre) {
+        this.nombre = nombre;
     }
 }

@@ -1,27 +1,15 @@
 package ve.edu.unet.nodosAST;
 
-public class NodoFor extends NodoBase{
-    private Object cuerpo;
+public class NodoFor extends NodoBase {
+    private String variable;
     private NodoBase inicio;
-    private NodoBase fin;
-    private String variable_name;
-    private boolean v_bool;
 
-    public NodoFor(String variable_name, NodoBase inicio, NodoBase fin, Object cuerpo,  boolean n_bool) {
-        super();
-        this.cuerpo = cuerpo;
-        this.inicio = inicio;
-        this.fin = fin;
-        this.variable_name = variable_name;
-        this.v_bool = n_bool;
+    public String getVariable() {
+        return variable;
     }
 
-    public Object getCuerpo() {
-        return cuerpo;
-    }
-
-    public void setCuerpo(Object cuerpo) {
-        this.cuerpo = cuerpo;
+    public void setVariable(String variable) {
+        this.variable = variable;
     }
 
     public NodoBase getInicio() {
@@ -40,19 +28,23 @@ public class NodoFor extends NodoBase{
         this.fin = fin;
     }
 
-    public String getVariable_name() {
-        return variable_name;
+    public boolean isAscendente() {
+        return ascendente;
     }
 
-    public void setVariable_name(String variable_name) {
-        this.variable_name = variable_name;
+    public void setAscendente(boolean ascendente) {
+        this.ascendente = ascendente;
     }
 
-    public boolean isV_bool() {
-        return v_bool;
-    }
+    private NodoBase fin;
 
-    public void setV_bool(boolean v_bool) {
-        this.v_bool = v_bool;
+    private boolean ascendente;
+
+    public NodoFor(String variable, NodoBase inicio, NodoBase fin, boolean ascendente) {
+        super();
+        this.variable = variable;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.ascendente = ascendente;
     }
 }
