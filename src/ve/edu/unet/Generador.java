@@ -262,10 +262,26 @@ public class Generador {
 				UtGen.emitirRM("LDC", UtGen.AC, 1, UtGen.AC, "caso de verdadero (AC=1)");
 				break;
 			case and:
-				UtGen.emitirRO("AND", UtGen.AC, UtGen.AC1, UtGen.AC, "op: AND");
+				// AND implementation
+				// First operand is already in AC
+				UtGen.emitirRM("JEQ", UtGen.AC, 2, UtGen.PC, "AND: short-circuit if left operand is false");
+				// If the first operand is true, evaluate the second operand
+				UtGen.emitirRO("ADD", UtGen.AC1, UtGen.AC, 0, "copy AC to AC1");
+				generar(n.getOpDerecho());
+				UtGen.emitirRO("MUL", UtGen.AC, UtGen.AC1, UtGen.AC, "op: AND (AC1 * AC)");
 				break;
 			case or:
-				UtGen.emitirRO("OR", UtGen.AC, UtGen.AC1, UtGen.AC, "op: OR");
+				// OR implementation
+				// First operand is already in AC
+				UtGen.emitirRM("JNE", UtGen.AC, 2, UtGen.PC, "OR: short-circuit if left operand is true");
+				// If the first operand is false, evaluate the second operand
+				UtGen.emitirRO("ADD", UtGen.AC1, UtGen.AC, 0, "copy AC to AC1");
+				generar(n.getOpDerecho());
+				UtGen.emitirRO("ADD", UtGen.AC, UtGen.AC1, UtGen.AC, "op: OR (AC1 + AC)");
+				UtGen.emitirRM("JNE", UtGen.AC, 2, UtGen.PC, "OR: result is true if either operand is true");
+				UtGen.emitirRM("LDC", UtGen.AC, 0, 0, "OR: result is false (AC=0)");
+				UtGen.emitirRM("LDA", UtGen.PC, 1, UtGen.PC, "unconditional jump (skip true case)");
+				UtGen.emitirRM("LDC", UtGen.AC, 1, 0, "OR: result is true (AC=1)");
 				break;
 			case not:
 				UtGen.emitirRM("LDC", UtGen.AC1, 1, UtGen.AC1, "Load constant 1");

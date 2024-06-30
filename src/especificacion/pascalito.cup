@@ -280,9 +280,9 @@ simple_exp  ::= simple_exp:exI PLUS term:exD {:
                     if (debug) System.out.println("\t regla 13c");
                     RESULT = new NodoOperacion(exI, tipoOp.and, exD);
                 :}
-                | simple_exp:exI OR term:exD {:
-                    if (debug) System.out.println("\t regla 13d");
-                    RESULT = new NodoOperacion(exI, tipoOp.or, exD);
+                | simple_exp:exI OR simple_exp:exD {:
+                     if (debug) System.out.println("\t regla 13a");
+                     RESULT = new NodoOperacion(exI, tipoOp.or, exD);
                 :}
                 | term:ex {:
                     if (debug) System.out.println("\t regla 13e");
