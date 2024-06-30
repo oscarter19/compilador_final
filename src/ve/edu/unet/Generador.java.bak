@@ -85,8 +85,6 @@ public class Generador {
 				generarDeclaraciones(nodo);
 			} else if (nodo instanceof NodoVector) {
 				generarVector(nodo);
-			}else if(nodo instanceof  NodoSecuencia){
-				System.out.println("*\t\t\tSecuencia");
 			}
 			else{
 				System.out.println("BUG: Tipo de nodo a generar desconocido");
@@ -367,6 +365,58 @@ public class Generador {
 
 		if(UtGen.debug) UtGen.emitirComentario("<- for");
 	}
+
+	private static void generarOperacionVector(NodoBase nodo){
+		NodoOperacionVector n = (NodoOperacionVector) nodo;
+		int direccionBaseIzq = tablaSimbolos.getDireccion(n.getVectorIzquierdo().getNombre());
+		int direccionBaseDer = tablaSimbolos.getDireccion(n.getVectorDerecho().getNombre());
+
+		if (direccionBaseIzq == -1 || direccionBaseDer == -1) {
+			System.out.println("Error: Vector no declarado");
+			return;
+		}
+
+		int tamanio = tablaSimbolos.getTamanioVector(n.getVectorIzquierdo().getNombre());
+		if (tamanio != tablaSimbolos.getTamanioVector(n.getVectorDerecho().getNombre())) {
+			System.out.println("Error: Vectores de diferentes tama�os");
+			return;
+		}
+
+		if(UtGen.debug) UtGen.emitirComentario("-> operacion entre vectores: " + n.getVectorIzquierdo().getNombre() + " y " + n.getVectorDerecho().getNombre());
+
+		for (int i = 0; i < tamanio; i++) {
+			// Calcular direcci�n de cada elemento del vector izquierdo
+			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseIzq + i, UtGen.GP, "Cargar direcci�n del vector izquierdo");
+			UtGen.emitirRM("LD", UtGen.AC1, 0, UtGen.AC, "Cargar valor del vector izquierdo");
+
+			// Calcular direcci�n de cada elemento del vector derecho
+			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseDer + i, UtGen.GP, "Cargar direcci�n del vector derecho");
+			UtGen.emitirRM("LD", UtGen.AC2, 0, UtGen.AC, "Cargar valor del vector derecho");
+
+			// Realizar la operaci�n
+			switch (n.getOperacion()) {
+				case SUMA:
+					UtGen.emitirRO("ADD", UtGen.AC, UtGen.AC1, UtGen.AC2, "Suma de elementos de vectores");
+					break;
+				case RESTA:
+					UtGen.emitirRO("SUB", UtGen.AC, UtGen.AC1, UtGen.AC2, "Resta de elementos de vectores");
+					break;
+				case MULTIPLICACION:
+					UtGen.emitirRO("MUL", UtGen.AC, UtGen.AC1, UtGen.AC2, "Multiplicaci�n de elementos de vectores");
+					break;
+				case DIVISION:
+					UtGen.emitirRO("DIV", UtGen.AC, UtGen.AC1, UtGen.AC2, "Divisi�n de elementos de vectores");
+					break;
+			}
+
+			// Guardar el resultado de vuelta en el vector izquierdo
+			UtGen.emitirRM("ST", UtGen.AC, direccionBaseIzq + i, UtGen.GP, "Guardar resultado en el vector izquierdo");
+		}
+
+		if(UtGen.debug) UtGen.emitirComentario("<- operacion entre vectores: " + n.getVectorIzquierdo().getNombre() + " y " + n.getVectorDerecho().getNombre());
+	}
+
+
 
 	//TODO: enviar preludio a archivo de salida, obtener antes su nombre
 	private static void generarPreludioEstandar(){

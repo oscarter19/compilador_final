@@ -45,11 +45,6 @@ public class TablaSimbolos {
 			else if (raiz instanceof NodoOperacion){
 				cargarTabla(((NodoOperacion)raiz).getOpIzquierdo());
 				cargarTabla(((NodoOperacion)raiz).getOpDerecho());
-			} else if (raiz instanceof NodoBloque) {
-				cargarTabla(((NodoBloque)raiz).getSt());
-			} else if (raiz instanceof NodoSecuencia) {
-				cargarTabla(((NodoSecuencia)raiz).getDecl());
-				cargarTabla(((NodoSecuencia)raiz).getDcs());
 			}
 			raiz = raiz.getHermanoDerecha();
 		}
