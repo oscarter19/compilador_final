@@ -100,6 +100,7 @@ non terminal NodoBase term;
 non terminal NodoBase factor;
 non terminal NodoBase decls;
 non terminal NodoBase block;
+non terminal NodoBase array_access;
 
 /* Precedencia de operadores */
 precedence left OR;
@@ -131,6 +132,20 @@ decls       ::= decls:dcs VAR ID:variable SEMI {:
                     if (debug) System.out.println("\t regla 3b");
                     RESULT = null;
                 :}
+                | decls VAR ID:variable ':' BOOLEAN SEMI {:
+                  if (debug) System.out.println("\tregla 3b");
+                  NodoDeclaracion decl = new NodoDeclaracion(variable.toString(), TipoNodo.BOOLEANO);
+                  RESULT = new NodoSecuencia(dcs, decl);
+              :}
+              |{:
+                  if (debug) System.out.println("\tregla 3c");
+                  RESULT = null;
+              :}
+                | INTEGER ID:nombre LBRACKET NUM:tam RBRACKET SEMI
+                     {: RESULT = new NodoDeclaracionVector(nombre.toString(), TipoNodo.VECTOR_ENTERO, tam); :}
+                     | BOOLEAN ID:nombre LBRACKET NUM:tam RBRACKET SEMI
+                     {: RESULT = new NodoDeclaracionVector(nombre.toString(), TipoNodo.VECTOR_BOOLEANO, tam); :}
+
                 ;
 
 stmt_seq    ::= stmt_seq:ini SEMI stmt:sent {:
@@ -351,4 +366,10 @@ factor      ::= LPAREN exp:ex RPAREN {:
                     System.out.println("Ocurrió un error en cup # 0003");
                     RESULT = null;
                 :}
+                | array_access:arr_acc {: RESULT = arr_acc; :}
                 ;
+ array_access ::= ID:nombre LBRACKET exp:indice RBRACKET
+                 {: if (debug) System.out.println("\tregla para acceso a vector");
+                    RESULT = new NodoAccesoVector(nombre.toString(), indice);
+                 :}
+

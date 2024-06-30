@@ -80,6 +80,8 @@ espacio		= [ \t]+
 "("                     { if(debug) System.out.println("token LPAREN"); return sf.newSymbol("LPAREN",sym.LPAREN); }
 ")"                     { if(debug) System.out.println("token RPAREN"); return sf.newSymbol("RPAREN",sym.RPAREN); }
 ";"                     { if(debug) System.out.println("token SEMI"); return sf.newSymbol("SEMI",sym.SEMI); }
+"["                     { if (debug) System.out.println("token LBRACKET"); return sf.newSymbol("LBRACKET", sym.LBRACKET); }
+"]"                     { if (debug) System.out.println("token RBRACKET"); return sf.newSymbol("RBRACKET", sym.RBRACKET); }
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}
 .               {System.err.println("Caracter Ilegal encontrado en analisis lexico: " + yytext() + "\n");}
