@@ -39,8 +39,6 @@ BORRAR SI NO SE NECESITA
     return sf.newSymbol("EOF",sym.EOF);
 %eofval}
 
-nuevalinea		= \n | \n\r | \r\n
-espacio		= [ \t]+
 %%
 
 "var"                   { if(debug) System.out.println("token VAR"); return sf.newSymbol("VAR",sym.VAR); }
@@ -65,7 +63,7 @@ espacio		= [ \t]+
 "true"                  { if(debug) System.out.println("token BOOLEAN"); return sf.newSymbol("BOOLEAN",sym.BOOLEAN, true); }
 "false"                 { if(debug) System.out.println("token BOOLEAN"); return sf.newSymbol("BOOLEAN",sym.BOOLEAN, false); }
 [a-zA-Z][a-zA-Z0-9]*    { if(debug) System.out.println("token ID"); return sf.newSymbol("ID",sym.ID, yytext()); }
-"{"[^}]*"}"             { /* salto comentarios */ if(debug) System.out.println("token COMENTARIO"); }
+"{"[^}]*"}"             { /* Comentario, ignorar */ }
 ":="                    { if(debug) System.out.println("token ASSIGN"); return sf.newSymbol("ASSIGN",sym.ASSIGN); }
 "<="                    { if(debug) System.out.println("token LEQ"); return sf.newSymbol("LEQ",sym.LEQ); }
 ">="                    { if(debug) System.out.println("token GEQ"); return sf.newSymbol("GEQ",sym.GEQ); }
@@ -80,6 +78,4 @@ espacio		= [ \t]+
 "("                     { if(debug) System.out.println("token LPAREN"); return sf.newSymbol("LPAREN",sym.LPAREN); }
 ")"                     { if(debug) System.out.println("token RPAREN"); return sf.newSymbol("RPAREN",sym.RPAREN); }
 ";"                     { if(debug) System.out.println("token SEMI"); return sf.newSymbol("SEMI",sym.SEMI); }
-{nuevalinea}       {lineanum++;}
-{espacio}    { /* saltos espacios en blanco*/}
-.               {System.err.println("Caracter Ilegal encontrado en analisis lexico: " + yytext() + "\n");}
+.                       { /* Ignorar caracteres desconocidos */ }

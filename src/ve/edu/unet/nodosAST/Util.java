@@ -63,7 +63,7 @@ public class Util {
 		    	System.out.println("**Expr Derecha Operacion**");		    	
 		    	imprimirAST(((NodoOperacion)raiz).getOpDerecho());
 		    }
-			  raiz = raiz.getHermanoDerecha();
+		    raiz = raiz.getHermanoDerecha();
 		  }
 		  sangria-=2;
 		}
@@ -99,10 +99,8 @@ static void imprimirNodo( NodoBase raiz )
 			System.out.println("-");
 		if(sel==tipoOp.por)
 			System.out.println("*");
-		if(sel==tipoOp.div)
+		if(sel==tipoOp.entre)
 			System.out.println("/");
-		if(sel==tipoOp.menorIgual)
-			System.out.println("<=");
 	}
 
 	if(	raiz instanceof NodoValor ){

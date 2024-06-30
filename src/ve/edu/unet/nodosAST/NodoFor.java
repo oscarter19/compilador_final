@@ -1,58 +1,21 @@
 package ve.edu.unet.nodosAST;
 
-public class NodoFor extends NodoBase{
-    private Object cuerpo;
-    private NodoBase inicio;
-    private NodoBase fin;
-    private String variable_name;
-    private boolean v_bool;
+public class NodoFor extends NodoBase {
+    private NodoBase inicializacion;
+    private NodoBase condicion;
+    private NodoBase incremento;
+    private NodoBase cuerpo;
 
-    public NodoFor(String variable_name, NodoBase inicio, NodoBase fin, Object cuerpo,  boolean n_bool) {
+    public NodoFor(NodoBase inicializacion, NodoBase condicion, NodoBase incremento, NodoBase cuerpo) {
         super();
-        this.cuerpo = cuerpo;
-        this.inicio = inicio;
-        this.fin = fin;
-        this.variable_name = variable_name;
-        this.v_bool = n_bool;
-    }
-
-    public Object getCuerpo() {
-        return cuerpo;
-    }
-
-    public void setCuerpo(Object cuerpo) {
+        this.inicializacion = inicializacion;
+        this.condicion = condicion;
+        this.incremento = incremento;
         this.cuerpo = cuerpo;
     }
 
-    public NodoBase getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(NodoBase inicio) {
-        this.inicio = inicio;
-    }
-
-    public NodoBase getFin() {
-        return fin;
-    }
-
-    public void setFin(NodoBase fin) {
-        this.fin = fin;
-    }
-
-    public String getVariable_name() {
-        return variable_name;
-    }
-
-    public void setVariable_name(String variable_name) {
-        this.variable_name = variable_name;
-    }
-
-    public boolean isV_bool() {
-        return v_bool;
-    }
-
-    public void setV_bool(boolean v_bool) {
-        this.v_bool = v_bool;
-    }
+    public NodoBase getInicializacion() { return inicializacion; }
+    public NodoBase getCondicion() { return condicion; }
+    public NodoBase getIncremento() { return incremento; }
+    public NodoBase getCuerpo() { return cuerpo; }
 }

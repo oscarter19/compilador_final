@@ -10,17 +10,19 @@ import java.util.*;
 public class TablaSimbolos {
 	private HashMap<String, RegistroSimbolo> tabla;
 	private int direccion;  //Contador de las localidades de memoria asignadas a la tabla
-	
+
+	private HashMap<String, Integer> tamaniosVectores = new HashMap<String, Integer>();
 	public TablaSimbolos() {
 		super();
 		tabla = new HashMap<String, RegistroSimbolo>();
+
 		direccion=0;
 	}
 
 	public void cargarTabla(NodoBase raiz){
 		while (raiz != null) {
-	    if (raiz instanceof NodoAsignacion){
-	    	InsertarSimbolo(((NodoAsignacion)raiz).getIdentificador(),-1);
+	    if (raiz instanceof NodoIdentificador){
+	    	InsertarSimbolo(((NodoIdentificador)raiz).getNombre(),-1);
 	    	//TODO: Añadir el numero de linea y localidad de memoria correcta
 	    }
 
@@ -43,13 +45,8 @@ public class TablaSimbolos {
 	    else if (raiz instanceof NodoOperacion){
 	    	cargarTabla(((NodoOperacion)raiz).getOpIzquierdo());
 	    	cargarTabla(((NodoOperacion)raiz).getOpDerecho());
-	    } else if (raiz instanceof NodoBloque) {
-			cargarTabla(((NodoBloque)raiz).getSt());
-		} else if (raiz instanceof NodoSecuencia) {
-			cargarTabla(((NodoSecuencia)raiz).getDecl());
-			cargarTabla(((NodoSecuencia)raiz).getDcs());
-		}
-			raiz = raiz.getHermanoDerecha();
+	    }
+	    raiz = raiz.getHermanoDerecha();
 	  }
 	}
 	
@@ -81,7 +78,11 @@ public class TablaSimbolos {
 	public int getDireccion(String Clave){
 		return BuscarSimbolo(Clave).getDireccionMemoria();
 	}
-	
+
+	public int getTamanioVector(String nombre) {
+		return tamaniosVectores.getOrDefault(nombre, -1);
+	}
+
 	/*
 	 * TODO:
 	 * 1. Crear lista con las lineas de codigo donde la variable es usada.
