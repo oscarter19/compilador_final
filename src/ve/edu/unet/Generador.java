@@ -147,9 +147,10 @@ public class Generador {
 
 	private static void generarDeclaraciones(NodoBase nodo){
 		NodoSecuencia n = (NodoSecuencia)nodo;
-
-		generar(n.getDecl());
-		generar(n.getDcs());
+		if (n.getDcs()!=null)
+			generar(n.getDcs());
+		if (n.getDecl()!=null)
+			generar(n.getDecl());
 
 	}
 
@@ -205,7 +206,8 @@ public class Generador {
 		NodoOperacion n = (NodoOperacion) nodo;
 		if(UtGen.debug)	UtGen.emitirComentario("-> Operacion: " + n.getOperacion());
 		/* Genero la expresion izquierda de la operacion */
-		generar(n.getOpIzquierdo());
+		if(n.getOpIzquierdo()!=null)
+			generar(n.getOpIzquierdo());
 		/* Almaceno en la pseudo pila de valor temporales el valor de la operacion izquierda */
 		UtGen.emitirRM("ST", UtGen.AC, desplazamientoTmp--, UtGen.MP, "op: push en la pila tmp el resultado expresion izquierda");
 		/* Genero la expresion derecha de la operacion */
@@ -327,11 +329,11 @@ public class Generador {
 
 		if(UtGen.debug) UtGen.emitirComentario("-> vector: " + n.getNombre());
 
-		// Generar el código para calcular el índice del vector
+		// Generar el cï¿½digo para calcular el ï¿½ndice del vector
 		generar(n.getIndice());
 
-		// Calcular la dirección efectiva del elemento del vector
-		UtGen.emitirRO("ADD", UtGen.AC, UtGen.AC, direccionBase, "Calcular dirección del vector " + n.getNombre());
+		// Calcular la direcciï¿½n efectiva del elemento del vector
+		UtGen.emitirRO("ADD", UtGen.AC, UtGen.AC, direccionBase, "Calcular direcciï¿½n del vector " + n.getNombre());
 		UtGen.emitirRM("LD", UtGen.AC, 0, UtGen.AC, "Cargar valor del vector " + n.getNombre());
 
 		if(UtGen.debug) UtGen.emitirComentario("<- vector: " + n.getNombre());
@@ -376,22 +378,22 @@ public class Generador {
 
 		int tamanio = tablaSimbolos.getTamanioVector(n.getVectorIzquierdo().getNombre());
 		if (tamanio != tablaSimbolos.getTamanioVector(n.getVectorDerecho().getNombre())) {
-			System.out.println("Error: Vectores de diferentes tamaños");
+			System.out.println("Error: Vectores de diferentes tamaï¿½os");
 			return;
 		}
 
 		if(UtGen.debug) UtGen.emitirComentario("-> operacion entre vectores: " + n.getVectorIzquierdo().getNombre() + " y " + n.getVectorDerecho().getNombre());
 
 		for (int i = 0; i < tamanio; i++) {
-			// Calcular dirección de cada elemento del vector izquierdo
-			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseIzq + i, UtGen.GP, "Cargar dirección del vector izquierdo");
+			// Calcular direcciï¿½n de cada elemento del vector izquierdo
+			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseIzq + i, UtGen.GP, "Cargar direcciï¿½n del vector izquierdo");
 			UtGen.emitirRM("LD", UtGen.AC1, 0, UtGen.AC, "Cargar valor del vector izquierdo");
 
-			// Calcular dirección de cada elemento del vector derecho
-			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseDer + i, UtGen.GP, "Cargar dirección del vector derecho");
+			// Calcular direcciï¿½n de cada elemento del vector derecho
+			UtGen.emitirRM("LDA", UtGen.AC, direccionBaseDer + i, UtGen.GP, "Cargar direcciï¿½n del vector derecho");
 			UtGen.emitirRM("LD", UtGen.AC2, 0, UtGen.AC, "Cargar valor del vector derecho");
 
-			// Realizar la operación
+			// Realizar la operaciï¿½n
 			switch (n.getOperacion()) {
 				case SUMA:
 					UtGen.emitirRO("ADD", UtGen.AC, UtGen.AC1, UtGen.AC2, "Suma de elementos de vectores");
@@ -400,10 +402,10 @@ public class Generador {
 					UtGen.emitirRO("SUB", UtGen.AC, UtGen.AC1, UtGen.AC2, "Resta de elementos de vectores");
 					break;
 				case MULTIPLICACION:
-					UtGen.emitirRO("MUL", UtGen.AC, UtGen.AC1, UtGen.AC2, "Multiplicación de elementos de vectores");
+					UtGen.emitirRO("MUL", UtGen.AC, UtGen.AC1, UtGen.AC2, "Multiplicaciï¿½n de elementos de vectores");
 					break;
 				case DIVISION:
-					UtGen.emitirRO("DIV", UtGen.AC, UtGen.AC1, UtGen.AC2, "División de elementos de vectores");
+					UtGen.emitirRO("DIV", UtGen.AC, UtGen.AC1, UtGen.AC2, "Divisiï¿½n de elementos de vectores");
 					break;
 			}
 
