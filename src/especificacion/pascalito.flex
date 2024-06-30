@@ -63,7 +63,7 @@ espacio		= [ \t]+
 "mod"                   { if(debug) System.out.println("token MOD"); return sf.newSymbol("MOD",sym.MOD); }
 [0-9]+                  { if(debug) System.out.println("token NUMBER"); return sf.newSymbol("INTEGER",sym.INTEGER, Integer.parseInt(yytext())); }
 "true"                  { if(debug) System.out.println("token BOOLEAN"); return sf.newSymbol("BOOLEAN",sym.BOOLEAN, Boolean.parseBoolean(yytext())); }
-"false"                  { if(debug) System.out.println("token BOOLEAN"); return sf.newSymbol("BOOLEAN",sym.BOOLEAN, Boolean.parseBoolean(yytext())); }
+"false"                 { if(debug) System.out.println("token BOOLEAN"); return sf.newSymbol("BOOLEAN",sym.BOOLEAN, Boolean.parseBoolean(yytext())); }
 [a-zA-Z][a-zA-Z0-9]*    { if(debug) System.out.println("token ID"); return sf.newSymbol("ID",sym.ID, yytext()); }
 "{"[^}]*"}"             { /* salto comentarios */ if(debug) System.out.println("token COMENTARIO"); }
 ":="                    { if(debug) System.out.println("token ASSIGN"); return sf.newSymbol("ASSIGN",sym.ASSIGN); }

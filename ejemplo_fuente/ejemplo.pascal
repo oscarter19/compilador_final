@@ -1,9 +1,5 @@
-var varib;
+var varb;
 begin
-    varib:=false;
-        if (varib) then
-            write(1)
-        else
-            write(0)
-        end
+    varb:= 10 mod 4;
+    write(varb)
 end

@@ -291,7 +291,10 @@ public class Generador {
 				UtGen.emitirRM("LDC", UtGen.AC1, 1, UtGen.AC1, "Load constant 1");
 				UtGen.emitirRO("SUB", UtGen.AC, UtGen.AC1, UtGen.AC, "op: NOT");
 				break;
-			case mod:    UtGen.emitirRO("MOD", UtGen.AC, UtGen.AC1, UtGen.AC, "op: %");
+			case mod:
+				UtGen.emitirRO("DIV", UtGen.AC2, UtGen.AC1, UtGen.AC, "op: /");
+				UtGen.emitirRO("MUL", UtGen.AC2, UtGen.AC, UtGen.AC2, "op: *");
+				UtGen.emitirRO("SUB", UtGen.AC,UtGen.AC1, UtGen.AC2, "op: %");
 				break;
 			default:
 				UtGen.emitirComentario("BUG: tipo de operacion desconocida");

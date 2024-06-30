@@ -5,31 +5,26 @@
 1:       ST       0,0(0)      limpio el registro de la localidad 0
 *			Secuencia
 *      -> asignacion
+*      -> Operacion: mod
 *      -> constante
-2:       LDC       0,0(0)      cargar constante: 0
+2:       LDC       0,10(0)      cargar constante: 10
 *      <- constante
-3:       ST       0,0(5)      asignacion: almaceno el valor para el id varib
+3:       ST       0,0(6)      op: push en la pila tmp el resultado expresion izquierda
+*      -> constante
+4:       LDC       0,4(0)      cargar constante: 4
+*      <- constante
+5:       LD       1,0(6)      op: pop o cargo de la pila el valor izquierdo en AC1
+6:       DIV       2,1,0      op: /
+7:       MUL       2,0,2      op: *
+8:       SUB       0,1,2      op: %
+*      <- Operacion: mod
+9:       ST       0,0(5)      asignacion: almaceno el valor para el id varb
 *      <- asignacion
-*      -> if
-*      -> identificador
-4:       LD       0,0(5)      cargar valor de identificador: varib
-*      -> identificador
-*      If: el salto hacia el else debe estar aqui
 *      -> escribir
-*      -> constante
-6:       LDC       0,1(0)      cargar constante: 1
-*      <- constante
-7:       OUT       0,0,0      escribir: genero la salida de la expresion
+*      -> identificador
+10:       LD       0,0(5)      cargar valor de identificador: varb
+*      -> identificador
+11:       OUT       0,0,0      escribir: genero la salida de la expresion
 *      <- escribir
-*      If: el salto hacia el final debe estar aqui
-5:       JEQ       0,3(7)      if: jmp hacia else
-*      -> escribir
-*      -> constante
-9:       LDC       0,0(0)      cargar constante: 0
-*      <- constante
-10:       OUT       0,0,0      escribir: genero la salida de la expresion
-*      <- escribir
-8:       LDA       7,2(7)      if: jmp hacia el final
-*      <- if
 *      Fin de la ejecucion.
-11:       HALT       0,0,0
+12:       HALT       0,0,0
