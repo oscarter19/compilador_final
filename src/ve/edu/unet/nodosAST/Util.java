@@ -99,7 +99,7 @@ static void imprimirNodo( NodoBase raiz )
 			System.out.println("-");
 		if(sel== tipoOp.por)
 			System.out.println("*");
-		if(sel== tipoOp.entre)
+		if(sel== tipoOp.div)
 			System.out.println("/");
 	}
 
