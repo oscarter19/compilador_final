@@ -1,7 +1,9 @@
 var varib;
 begin
-    varib:=1;
-        if (0 < 9) then
+    varib:=false;
+        if (varib) then
+            write(1)
+        else
             write(0)
-         end
+        end
 end

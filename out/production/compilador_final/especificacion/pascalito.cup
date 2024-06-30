@@ -326,7 +326,7 @@ factor      ::= LPAREN exp:ex RPAREN {:
                     if (debug) System.out.println("\t regla 15c");
                     System.out.println("Devolviendo nodo booleano");
                     if (valor != null) {
-                        RESULT = new NodoValorBooleano(valor);
+                        RESULT = new NodoValorBooleano(valor ? 1 : 0);
                     } else {
                         RESULT = null;
                         System.out.println("Ocurrió un error en cup # 0005");

@@ -300,14 +300,10 @@ public class Generador {
 	}
 
 	private static void generarVariableBooleana(NodoBase nodo){
-		NodoIdentificador n = (NodoIdentificador) nodo;
-		int direccion = tablaSimbolos.getDireccion(n.getNombre());
-
-		if(UtGen.debug) UtGen.emitirComentario("-> variable booleana");
-
-		UtGen.emitirRM("LD", UtGen.AC, direccion, UtGen.GP, "cargar valor de la variable booleana: " + n.getNombre());
-
-		if(UtGen.debug) UtGen.emitirComentario("<- variable booleana");
+		NodoValorBooleano n = (NodoValorBooleano)nodo;
+		if(UtGen.debug)	UtGen.emitirComentario("-> constante");
+		UtGen.emitirRM("LDC", UtGen.AC, n.getValor(), 0, "cargar constante: "+n.getValor());
+		if(UtGen.debug)	UtGen.emitirComentario("<- constante");
 	}
 
 	private static void generarVariableEntera(NodoBase nodo){
